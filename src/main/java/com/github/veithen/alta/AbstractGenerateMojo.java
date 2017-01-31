@@ -114,6 +114,12 @@ public abstract class AbstractGenerateMojo extends AbstractMojo {
                 }
             }
         });
+        artifactGroup.addProperty("mavenPath", new Property<Artifact>() {
+            public String evaluate(Artifact artifact) throws EvaluationException {
+                 return getArtifactMavenPath(artifact);
+            }
+
+        });
         templateCompiler.setDefaultPropertyGroup(artifactGroup);
         PropertyGroup<Context,Bundle> bundleGroup = new PropertyGroup<Context,Bundle>(Bundle.class) {
             @Override
@@ -346,6 +352,14 @@ public abstract class AbstractGenerateMojo extends AbstractMojo {
             throw new EvaluationException("Artifact has not been packaged yet; it is part of the reactor, but the package phase has not been executed.");
         }
     }
+    
+    static String getArtifactMavenPath(Artifact artifact) {
+        String classifier = artifact.getClassifier();
+        String type = artifact.getType();
+        String artifactFileName = artifact.getArtifactId() + '-' + artifact.getVersion() + (classifier != null ? ("-" + classifier) : "") + '.' + (type != null ? type : "jar");
+        return artifact.getGroupId().replace('.', '/') + '/' + artifact.getArtifactId() + '/' + artifact.getVersion() + '/' + artifactFileName;
+    }
+
     
     static Bundle extractBundleMetadata(Artifact artifact) throws EvaluationException {
         File file = getArtifactFile(artifact);
