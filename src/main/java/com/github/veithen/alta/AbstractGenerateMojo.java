@@ -356,8 +356,8 @@ public abstract class AbstractGenerateMojo extends AbstractMojo {
     static String getArtifactMavenPath(Artifact artifact) {
         String classifier = artifact.getClassifier();
         String type = artifact.getType();
-        String artifactFileName = artifact.getArtifactId() + '-' + artifact.getVersion() + (classifier != null ? ("-" + classifier) : "") + '.' + (type != null ? type : "jar");
-        return artifact.getGroupId().replace('.', '/') + '/' + artifact.getArtifactId() + '/' + artifact.getVersion() + '/' + artifactFileName;
+        String artifactFileName = artifact.getArtifactId() + '-' + artifact.getBaseVersion() + (classifier != null ? ("-" + classifier) : "") + '.' + (type != null ? type : "jar");
+        return artifact.getGroupId().replace('.', '/') + '/' + artifact.getArtifactId() + '/' + artifact.getBaseVersion() + '/' + artifactFileName;
     }
 
     
