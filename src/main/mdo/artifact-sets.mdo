@@ -80,6 +80,15 @@
                     </description>
                 </field>
                 <field>
+                    <name>ignoreTransitiveDependencies</name>
+                    <version>1.0.0+</version>
+                    <type>boolean</type>
+                    <defaultValue>false</defaultValue>
+                    <description>
+                        Determines whether the transitive dependencies should be taken into account or ignored.
+                    </description>
+                </field>
+                <field>
                     <name>useProjectArtifact</name>
                     <version>1.0.0+</version>
                     <type>boolean</type>

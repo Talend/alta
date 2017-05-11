@@ -90,6 +90,11 @@ public abstract class AbstractGenerateMojo extends AbstractMojo {
                 return artifact.getVersion();
             }
         });
+        artifactGroup.addProperty("baseVersion", new Property<Artifact>() {
+            public String evaluate(Artifact artifact) {
+                return artifact.getBaseVersion();
+            }
+        });
         artifactGroup.addProperty("classifier", new Property<Artifact>() {
             public String evaluate(Artifact artifact) {
                 return artifact.getClassifier();
