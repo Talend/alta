@@ -90,7 +90,7 @@
 						</goals>
 						<configuration>
 							<name>maven.path.windows</name>
-							<value>.m2/%mavenPathWindows%</value>
+							<value>.m2\%mavenPathWindows%</value>
 							<separator>;</separator>
 							<artifacts>
 								<artifact>

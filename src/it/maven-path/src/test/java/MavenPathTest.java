@@ -47,8 +47,8 @@ public class MavenPathTest {
      */
     @Test
     public void testMavenPathWindowsProperty() {
-        String expectedPath = ".m2/org\\apache\\commons\\commons-lang3\\3.4\\commons-lang3-3.4.jar;"
-                + ".m2/org\\apache\\commons\\commons-lang3\\3.4\\commons-lang3-3.4-sources.jar";
+        String expectedPath = ".m2\\org\\apache\\commons\\commons-lang3\\3.4\\commons-lang3-3.4.jar;"
+                + ".m2\\org\\apache\\commons\\commons-lang3\\3.4\\commons-lang3-3.4-sources.jar";
         assertEquals(expectedPath, System.getProperty("maven.path.windows"));
     }
     
