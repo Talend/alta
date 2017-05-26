@@ -1,3 +1,4 @@
+
 /*
  * #%L
  * Alta Maven Plugin
@@ -8,7 +9,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,8 +27,29 @@ import org.junit.Test;
 import org.w3c.dom.Node;
 
 public class MavenPathTest {
+
+    /**
+     * Tests for %mavenPath% property, which generates classpath for UNIX:
+     * Slash is used as directory separator,
+     * Colon is used as classpath separator
+     */
     @Test
-    public void testExpectedProperties() {
-        assertEquals("org/apache/commons/commons-lang3/3.4/commons-lang3-3.4.jar:org/apache/commons/commons-lang3/3.4/commons-lang3-3.4-sources.jar", System.getProperty("maven.path.class.path"));
+    public void testMavenPathProperty() {
+        String expectedPath = ".m2/org/apache/commons/commons-lang3/3.4/commons-lang3-3.4.jar:"
+                + ".m2/org/apache/commons/commons-lang3/3.4/commons-lang3-3.4-sources.jar";
+        assertEquals(expectedPath, System.getProperty("maven.path.linux"));
     }
+    
+    /**
+     * Tests for %mavenPathWindows% property, which generates classpath for Windows:
+     * BackSlash is used as directory separator,
+     * Semicolon is used as classpath separator
+     */
+    @Test
+    public void testMavenPathWindowsProperty() {
+        String expectedPath = ".m2/org\\apache\\commons\\commons-lang3\\3.4\\commons-lang3-3.4.jar;"
+                + ".m2/org\\apache\\commons\\commons-lang3\\3.4\\commons-lang3-3.4-sources.jar";
+        assertEquals(expectedPath, System.getProperty("maven.path.windows"));
+    }
+    
 }
