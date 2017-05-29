@@ -60,13 +60,38 @@
 				<artifactId>alta-maven-plugin</artifactId>
 				<executions>
 					<execution>
+						<id>maven-path-linux</id>
 						<goals>
 							<goal>generate-properties</goal>
 						</goals>
 						<configuration>
-							<name>maven.path.class.path</name>
-							<value>%mavenPath%</value>
-							<separator>${path.separator}</separator>
+							<name>maven.path.linux</name>
+							<value>.m2/%mavenPath%</value>
+							<separator>:</separator>
+							<artifacts>
+								<artifact>
+									<groupId>org.apache.commons</groupId>
+									<artifactId>commons-lang3</artifactId>
+									<version>3.4</version>
+								</artifact>
+								<artifact>
+									<groupId>org.apache.commons</groupId>
+									<artifactId>commons-lang3</artifactId>
+									<version>3.4</version>
+									<classifier>sources</classifier>
+								</artifact>
+							</artifacts>
+						</configuration>
+					</execution>
+					<execution>
+						<id>maven-path-windows</id>
+						<goals>
+							<goal>generate-properties</goal>
+						</goals>
+						<configuration>
+							<name>maven.path.windows</name>
+							<value>.m2\%mavenPathWindows%</value>
+							<separator>;</separator>
 							<artifacts>
 								<artifact>
 									<groupId>org.apache.commons</groupId>
@@ -87,7 +112,7 @@
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<argLine>-Dmaven.path.class.path=${maven.path.class.path}</argLine>
+					<argLine>-Dmaven.path.linux=${maven.path.linux} -Dmaven.path.windows=${maven.path.windows}</argLine>
 				</configuration>
 			</plugin>
 			<!-- END SNIPPET: plugins -->

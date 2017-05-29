@@ -121,7 +121,13 @@ public abstract class AbstractGenerateMojo extends AbstractMojo {
         });
         artifactGroup.addProperty("mavenPath", new Property<Artifact>() {
             public String evaluate(Artifact artifact) throws EvaluationException {
-                 return getArtifactMavenPath(artifact);
+                 return getArtifactMavenPathUnix(artifact);
+            }
+
+        });
+        artifactGroup.addProperty("mavenPathWindows", new Property<Artifact>() {
+            public String evaluate(Artifact artifact) throws EvaluationException {
+                 return getArtifactMavenPathWindows(artifact);
             }
 
         });
@@ -358,13 +364,20 @@ public abstract class AbstractGenerateMojo extends AbstractMojo {
         }
     }
     
-    static String getArtifactMavenPath(Artifact artifact) {
+    static String getArtifactMavenPathUnix(Artifact artifact) {
+        return getArtifactMavenPath(artifact, '/');
+    }
+
+    static String getArtifactMavenPathWindows(Artifact artifact) {
+        return getArtifactMavenPath(artifact, '\\');
+    }
+    
+    private static String getArtifactMavenPath(Artifact artifact, char separator) {
         String classifier = artifact.getClassifier();
         String type = artifact.getType();
         String artifactFileName = artifact.getArtifactId() + '-' + artifact.getBaseVersion() + (classifier != null ? ("-" + classifier) : "") + '.' + (type != null ? type : "jar");
-        return artifact.getGroupId().replace('.', '/') + '/' + artifact.getArtifactId() + '/' + artifact.getBaseVersion() + '/' + artifactFileName;
+        return artifact.getGroupId().replace('.', separator) + separator + artifact.getArtifactId() + separator + artifact.getBaseVersion() + separator + artifactFileName;
     }
-
     
     static Bundle extractBundleMetadata(Artifact artifact) throws EvaluationException {
         File file = getArtifactFile(artifact);

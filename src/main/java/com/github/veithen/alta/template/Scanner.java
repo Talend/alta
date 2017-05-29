@@ -62,16 +62,7 @@ final class Scanner {
         StringBuilder buffer = new StringBuilder();
         while (true) {
             int c = peek();
-            if (c == '\\') {
-                consume();
-                if (peek() != -1) {
-                    c = consume();
-                    if (stopChars.indexOf(c) == -1) {
-                        buffer.append('\\');
-                    }
-                }
-                buffer.append((char)c);
-            } else if (c == -1 || stopChars.indexOf(c) != -1) {
+            if (c == -1 || stopChars.indexOf(c) != -1) {
                 return buffer.toString();
             } else {
                 buffer.append(consume());
